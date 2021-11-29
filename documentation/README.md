@@ -4,7 +4,7 @@
 
 ### 하위 문서
 
-* [gRPC는 무엇일까요?](what-is-grpc)
+* [gRPC가 무엇인가요?](what-is-grpc)
 * [지원되는 프로그래밍 언어](languages)
 * [지원되는 플렛폼](platforms)
 * [가이드](guides)
