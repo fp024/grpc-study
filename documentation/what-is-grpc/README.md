@@ -12,7 +12,7 @@ gRPC와 프로토콜 버퍼를 소개합니다.
 
 
 
-### 핵심 개념, 아키텍처 및 수명 주기 (lifecycle)
+### [핵심 개념, 아키텍처 및 수명 주기 (lifecycle)](core-concepts-architecture-and-lifecycle.md)
 
 gRPC 아키텍처 및 RPC 수명 주기에 대한 개요와 함께 주요 gRPC 개념을 소개합니다.
 
