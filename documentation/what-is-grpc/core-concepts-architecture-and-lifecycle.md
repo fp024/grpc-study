@@ -1,5 +1,7 @@
 # 핵심 개념, 아키텍처 및 수명 주기 (lifecycle)
 
+> 원문: https://grpc.io/docs/what-is-grpc/core-concepts/
+
 #### gRPC 아키텍처 및 RPC 수명 주기에 대한 개요와 함께 주요 gRPC 개념을 소개합니다.
 
 ### 내용
