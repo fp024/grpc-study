@@ -2,14 +2,16 @@
 
 기존 Java 모델들을 proto 형식에 맞게 작성 후, proto 파일을 컴파일해서 Java 코드를 생성해줬던 기억이나는데, proto2 기준으로 했었는지? proto3기준으로 했었는지 해깔린다. ㅎㅎ, proto3를 먼저 보아도 될 것 같다.
 
+* 한글화 한 내용은 ✔️ 표시를 해두자!
 
+  
 
 ## [가이드](guides)
 
 ##### 개발자 가이드
 
 * [언어 가이드 (proto2)](https://developers.google.com/protocol-buffers/docs/proto)
-* [언어 가이드 (proto3)](https://developers.google.com/protocol-buffers/docs/proto3)
+* [언어 가이드 (proto3)](guides/developer-guide/proto3.md) ✔️
 * [스타일 가이드](https://developers.google.com/protocol-buffers/docs/style)
 * [인코딩](https://developers.google.com/protocol-buffers/docs/encoding)
 * [테크닉](https://developers.google.com/protocol-buffers/docs/techniques)
@@ -17,7 +19,7 @@
 
 ##### 튜토리얼 
 
-* [기초: 자바](https://developers.google.com/protocol-buffers/docs/javatutorial)
+* [기본: 자바](guides/tutorials/javatutorial.md) : *TODO*
 
 ---
 
