@@ -23,13 +23,13 @@
 
 이 가이드는 `.proto` 파일 구문과 `.proto` 파일에서 데이터 액세스 클래스를 생성하는 방법을 포함하여 프로토콜 버퍼 데이터를 구조화하기 위해 프로토콜 버퍼 언어를 사용하는 방법을 설명합니다. 프로토콜 버퍼 언어의 **proto3** 버전을 다룹니다. **proto2** 구문에 대한 정보는 [Proto2 언어 가이드](https://developers.google.com/protocol-buffers/docs/proto)를 참조하세요.
 
-이것은 레퍼런스 가이드입니다. 이 문서에 설명된 많은 기능을 사용하는 단계별 예제를 보려면 선택한 언어에 대한 [튜토리얼](https://developers.google.com/protocol-buffers/docs/tutorials)를 참조하십시오(현재 proto2만 해당, 더 많은 proto3 문서가 곧 제공될 예정임).
+이것은 레퍼런스 가이드입니다. 이 문서에 설명된 많은 기능을 사용하는 단계별 예제를 보려면, 선택한 언어에 대한 [튜토리얼](https://developers.google.com/protocol-buffers/docs/tutorials)를 참조하십시오(현재 proto2만 해당, 더 많은 proto3 문서가 곧 제공될 예정임).
 
 
 
 ## 메시지 타입 정의
 
-먼저 매우 간단한 예를 살펴보겠습니다. 각 검색 요청에 쿼리 문자열, 관심 있는 특정 결과 페이지 및 페이지당 결과 가 있는 검색 요청 메시지 타입을 정의하려고 한다고 가정해 보겠습니다. 다음은 메시지 타입을 정의하는 데 사용하는 `.proto` 파일입니다.
+먼저 매우 간단한 예를 살펴보겠습니다. 각 검색 요청에 쿼리 문자열, 관심 있는 특정 결과 페이지 및 페이지당 결과가 있는 검색 요청 메시지 타입을 정의하려고 한다고 가정해 보겠습니다. 다음은 메시지 타입을 정의하는 데 사용하는 `.proto` 파일입니다.
 
 ```protobuf
 syntax = "proto3";
@@ -42,7 +42,7 @@ message SearchRequest {
 ```
 
 * 파일의 첫 번째 줄은 `proto3` 구문을 사용하고 있음을 지정합니다. 이것을 지정하지 않으면 프로토콜 버퍼 컴파일러는 당신이 [proto2](https://developers.google.com/protocol-buffers/docs/proto)를 사용하고 있다고 가정할 것입니다. 이것은 비어있지 않은 주석이 없는 첫번째 줄이여야합니다.
-* `SearchRequest` 메시지 정의는 이 타입의 메시지에 포함하려는 각 데이터 조각에 대해 하나씩 세 개의 필드(이름/값 쌍)를 지정합니다. 각 필드에는 이름과 타입이 있습니다.
+* `SearchRequest` 메시지 정의는 이 타입의 메시지에 포함하려는 각 데이터 조각에 대해 하나씩 세 개의 필드(이름 / 값 쌍)를 지정합니다. 각 필드에는 이름과 타입이 있습니다.
 
 
 
@@ -64,12 +64,12 @@ message SearchRequest {
 
 메시지 필드는 다음 중 하나일 수 있습니다:
 
-* singular: 올바를 형식의 메시지는 이 필드 중 0개 또는 1개를 가질 수 있습니다(하나 이상은 아님). 그리고 이것은 proto3 구문의 기본 필드 규칙입니다.
+* singular(단수): 올바른 형식의(well-formed) 메시지는 이 필드 중 0개 또는 1개를 가질 수 있습니다(하나 이상은 아님). 그리고 이것은 proto3 구문의 기본 필드 규칙입니다.
 * `repeated`: 이 필드는 올바른 형식의 메시지에서 여러 번(0 포함) 반복될 수 있습니다. 반복되는 값의 순서는 유지됩니다.
 
-proto3에서 스칼라 숫자 유형의 `repeated` 필드는 기본적으로 `packed`(압축) 인코딩을 사용합니다.
+proto3에서 스칼라 숫자 유형의 `repeated` 필드는 기본적으로   압축(`packed`) 인코딩을 사용합니다.
 
-[프로토콜 버퍼 인코딩](https://developers.google.com/protocol-buffers/docs/encoding#packed)에서 `packed` 인코딩에 대해 자세히 알아볼 수 있습니다.
+[프로토콜 버퍼 인코딩](https://developers.google.com/protocol-buffers/docs/encoding#packed)에서 압축(`packed`) 인코딩에 대해 자세히 알아볼 수 있습니다.
 
 
 
@@ -93,7 +93,7 @@ message SearchResponse {
 
 ### 주석 추가
 
-`.proto` 파일에 주석을 추가하려면 C/C++ 스타일 `//` 및 /`* ... */` 구문을 사용하세요.
+`.proto` 파일에 주석을 추가하려면 C/C\+\+ 스타일 `//` 및 /`* ... */` 구문을 사용하세요.
 
 ```protobuf
 /* SearchRequest는 응답에 포함할 결과를 나타내는 
@@ -110,7 +110,7 @@ message SearchRequest {
 
 ### 예약된 필드
 
-필드를 완전히 제거하거나 주석 처리하여 메시지 타입을 업데이트하면 향후 사용자가 타입을 직접 업데이트할 때 필드 번호를 재사용할 수 있습니다. 이는 나중에 데이터 손상, 개인 정보 버그 등을 포함하여 동일한 `.proto`의 이전 버전을 로드하는 경우 심각한 문제를 일으킬 수 있습니다. 이러한 일이 발생하지 않도록 하는 한 가지 방법은 삭제된 필드의 필드 번호(및/또는 JSON 직렬화 문제를 일으킬 수도 있는 이름)를 `reserved`(예약)하도록 지정하는 것입니다. 프로토콜 버퍼 컴파일러는 향후 사용자가 이러한 필드 식별자를 사용하려고 하면 불평할 것입니다.
+필드를 완전히 제거하거나 주석 처리하여 메시지 타입을 업데이트하면 향후 사용자가 타입을 직접 업데이트할 때 필드 번호를 재사용할 수 있습니다. 이는 나중에 데이터 손상, 개인 정보 버그 등을 포함하여 동일한 `.proto`의 이전 버전을 로드하는 경우 심각한 문제를 일으킬 수 있습니다. 이러한 일이 발생하지 않도록 하는 한 가지 방법은 삭제된 필드의 필드 번호(및/또는 JSON 직렬화 문제를 일으킬 수도 있는 이름)를 예약(`reserved`)하도록 지정하는 것입니다. 프로토콜 버퍼 컴파일러는 향후 사용자가 이러한 필드 식별자를 사용하려고 하면 불평할 것입니다.
 
 ```protobuf
 message Foo {
@@ -127,14 +127,14 @@ message Foo {
 
 `.proto`로 프로토콜 버퍼 컴파일러를 실행하면 컴파일러는 필드 값 가져오기 및 설정, 출력 스트림에 대한 메시지 직렬화, 입력 스트림으로부터의 메시지 구문 분석을 포함하여 파일에 설명된 메시지 타입으로 작업할 필요가 있는 선택된 언어로 코드를 생성합니다.
 
-* **C++**의 경우 컴파일러는 파일에 설명된 각 메시지 타입에 대한 클래스와 함께 각 `.proto`에서 `.h` 및 `.cc` 파일을 생성합니다.
+* **C\+\+**의 경우 컴파일러는 파일에 설명된 각 메시지 타입에 대한 클래스와 함께 각 `.proto`에서 `.h` 및 `.cc` 파일을 생성합니다.
 * **Java**의 경우 컴파일러는 각 메시지 타입에 대한 클래스와 메시지 클래스 인스턴스를 생성하기 위한 특수 빌더 클래스가 있는 `.java` 파일을 생성합니다.
 * **Kotlin**의 경우 Java 생성 코드 외에도 컴파일러는 메시지 인스턴스 생성을 단순화하는 데 사용할 수 있는 DSL이 포함된 각 메시지 타입에 대한 **.kt** 파일을 생성합니다.
 * **Python**은 조금 다릅니다. – Python 컴파일러는 `.proto`의 각 메시지 타입의 정적 설명자와 함께 모듈을 생성하며, 런타임에 필요한 Python 데이터 액세스 클래스를 만들기 위해 메타클래스와 함께 사용됩니다.
 * **Go**의 경우 컴파일러는 파일의 각 메시지 타입에 대한 타입으로 `.pb.go` 파일을 생성합니다.
 * **Ruby**의 경우 컴파일러는 메시지 타입이 포함된 Ruby 모듈이 있는 `.rb` 파일을 생성합니다.
 * **Objective-C**의 경우 컴파일러는 파일에 설명된 각 메시지 타입에 대한 클래스와 함께 각 `.proto`에서 `pbobjc.h` 및 `pbobjc.m` 파일을 생성합니다.
-* **C#**의 경우 컴파일러는 파일에 설명된 각 메시지 타입에 대한 클래스와 함께 각 `.proto`에서 `.cs` 파일을 생성합니다.
+* **C\#**의 경우 컴파일러는 파일에 설명된 각 메시지 타입에 대한 클래스와 함께 각 `.proto`에서 `.cs` 파일을 생성합니다.
 * **Dart**의 경우 컴파일러는 파일의 각 메시지 유형에 대한 클래스가 있는 `.pb.dart` 파일을 생성합니다.
 
 선택한 언어에 대한 튜토리얼를 따라 각 언어에 대한 API 사용에 대해 자세히 알아볼 수 있습니다(곧 proto3 버전 제공 예정). API에 대한 자세한 내용은 관련 [API 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/overview)를 참조하세요.  (proto3 버전도 곧 제공 예정)
@@ -408,9 +408,9 @@ message Outer {                  // Level 0
 
 ## Unknown 필드
 
-Unknown 필드는 파서가 인식하지 못하는 필드를 나타내는 잘 구성된 프로토콜 버퍼 직렬화된 데이터입니다. 예를 들어, 이전 바이너리가 새 바이너리에서 보낸 데이터를 새 필드로 구문 분석할 때 새 필드는 이전 바이너리에서 알 수 없는 필드가 됩니다.
+Unknown 필드는 파서가 인식하지 못하는 필드를 나타내는 잘 구성된(well-formed) 프로토콜 버퍼 직렬화된 데이터입니다. 예를 들어, 이전 바이너리가 새 바이너리에서 보낸 데이터를 새 필드로 구문 분석할 때 새 필드는 이전 바이너리에서 알 수 없는 필드가 됩니다.
 
-원래 proto3 메시지는 구문 분석 중에 항상 Unknown 필드를 버렸지만 버전 3.5에서는 proto2 동작과 일치하도록 알 수 없는 필드의 보존을 다시 도입했습니다. 버전 3.5 이상에서 Unknown  필드는 구문 분석 중에 유지되고 직렬화된 출력에 포함됩니다.
+원래 proto3 메시지는 구문 분석 중에 항상 Unknown 필드를 버렸지만 버전 3.5에서는 proto2 동작과 일치하도록 알 수 없는 필드의 보존을 다시 도입했습니다. 버전 3.5 이상에서 Unknown 필드는 구문 분석 중에 유지되고 직렬화된 출력에 포함됩니다.
 
 
 
@@ -427,7 +427,7 @@ message ErrorStatus {
 }
 ```
 
-지정된 메시지 타입의 기본 타입 URL은 `type.googleapis.com/_packagename_._messagename_`입니다. 다른 언어 구현은 런타임 라이브러리 도우미를 지원하여 타입이 안전한 방식으로 모든 값을 압축 및 압축 해제합니다. – 예를 들어, Java에서 Any 유형에는 특별한 `pack()` 및 `unpack()` 접근자가 있는 반면 C++에는 `PackFrom()` 및 `UnpackTo()` 메서드가 있습니다.
+지정된 메시지 타입의 기본 타입 URL은 `type.googleapis.com/_packagename_._messagename_`입니다. 다른 언어 구현은 런타임 라이브러리 도우미를 지원하여 타입이 안전한 방식으로 모든 값을 압축 및 압축 해제합니다. – 예를 들어, Java에서 Any 유형에는 특별한 `pack()` 및 `unpack()` 접근자가 있는 반면 C\+\+에는 `PackFrom()` 및 `UnpackTo()` 메서드가 있습니다.
 
 ```c++
 // 임의의 메시지 유형을 Any에 저장합니다.
@@ -593,12 +593,12 @@ message Foo {
 
 패키지 지정자가 생성된 코드에 영향을 미치는 방식은 선택한 언어에 따라 다릅니다.
 
-* **C++**에서 생성된 클래스는 C++ 네임스페이스 내부에 래핑됩니다. 예를 들어, Open은 foo::bar 네임스페이스에 있습니다.
+* **C\+\+**에서 생성된 클래스는 C++ 네임스페이스 내부에 래핑됩니다. 예를 들어, Open은 foo::bar 네임스페이스에 있습니다.
 * **Java** 및 **Kotlin**에서는 `.proto` 파일에 `java_package` 옵션을 명시적으로 제공하지 않는 한 패키지가 Java 패키지로 사용됩니다.
 * **Python**에서 패키지 지시문은 무시됩니다. Python 모듈은 파일 시스템의 위치에 따라 구성되기 때문입니다.
 * **Go**에서 패키지는 `.proto` 파일에 `go_package` 옵션을 명시적으로 제공하지 않는 한 Go 패키지 이름으로 사용됩니다.
 * **Ruby**에서 생성된 클래스는 중첩된 Ruby 네임스페이스 안에 래핑되어 필요한 Ruby 대문자 스타일로 변환됩니다(첫 글자는 대문자로, 첫 글자가 글자가 아닌 경우 `PB_`가 앞에 추가됨). 예를 들어, `Open`은 `Foo::Bar` 네임스페이스에 있습니다.
-* **C#**에서는 `.proto` 파일에 `csharp_namespace` 옵션을 명시적으로 제공하지 않는 한 PascalCase로 변환한 후 패키지가 네임스페이스로 사용됩니다. 예를 들어 `Open`은 `Foo.Bar` 네임스페이스에 있습니다.
+* **C\#**에서는 `.proto` 파일에 `csharp_namespace` 옵션을 명시적으로 제공하지 않는 한 PascalCase로 변환한 후 패키지가 네임스페이스로 사용됩니다. 예를 들어 `Open`은 `Foo.Bar` 네임스페이스에 있습니다.
 
 
 
@@ -678,15 +678,87 @@ proto3 JSON 구현은 다음 옵션을 제공할 수 있습니다:
 
 ## 옵션
 
+`.proto` 파일의 개별 선언은 여러 옵션(*option*)으로 주석을 달 수 있습니다. 옵션은 선언의 전반적인 의미를 변경하지 않지만 특정 컨텍스트에서 처리되는 방식에 영향을 줄 수 있습니다. 사용 가능한 옵션의 전체 목록은 `google/protobuf/descriptor.proto`에 정의되어 있습니다.
 
+일부 옵션은 파일 수준 옵션입니다. 즉, 메시지, 열거형 또는 서비스 정의 내부가 아닌 최상위 범위에서 작성되어야 합니다. 일부 옵션은 메시지 수준 옵션으로, 메시지 정의 내에 작성되어야 함을 의미합니다. 일부 옵션은 필드 수준 옵션이므로 필드 정의 내에 작성해야 합니다. 옵션은 열거형  타입, 열거형 값, 필드 중 하나, 서비스 타입 및 서비스 메서드에 대해서도 작성할 수 있습니다; 그러나 현재 이러한 옵션에 대한 유용한 옵션이 없습니다.
+
+다음은 가장 일반적으로 사용되는 몇 가지 옵션입니다.
+
+* `java_package` (파일 수준 옵션): 생성된 Java/Kotlin 클래스에 사용할 패키지입니다. `.proto` 파일에 명시적인 `java_package` 옵션이 제공되지 않으면 기본적으로 proto 패키지(`.proto` 파일에서 "package" 키워드를 사용하여 지정됨)가 사용됩니다. 그러나 proto 패키지는 역 도메인 이름으로 시작하지 않을 것으로 예상되기 때문에 일반적으로 proto 패키지는 좋은 Java 패키지를 만들지 않습니다. Java 또는 Kotlin 코드를 생성하지 않는 경우 이 옵션은 효과가 없습니다.
+
+  ```protobuf
+  option java_package = "com.example.foo";
+  ```
+
+* `java_outer_classname` (파일 수준 옵션):  생성하려는 래퍼 Java 클래스의 클래스 이름(따라서 파일 이름)입니다. .proto 파일에 명시적인 `java_outer_classname`이 지정되지 않은 경우 클래스 이름은 .proto 파일 이름을 camel-case 로 변환하여 생성됩니다(따라서 `foo_bar.proto`는 `FooBar.java`가 됨). `java_multiple_files` 옵션을 사용하지 않도록 설정하면 `.proto` 파일에 대해 생성된 다른 모든 클래스/enums/etc가 이 외부 래퍼 Java 클래스 내에서 중첩된 클래스/enums/etc로 생성됩니다. Java 코드를 생성하지 않는 경우 이 옵션은 효과가 없습니다.
+
+  ```protobuf
+  option java_outer_classname = "Ponycopter";
+  ```
+
+* `java_multiple_files` (파일 수준 옵션): false이면 이 `.proto` 파일에 대해 하나의 `.java` 파일만 생성되고 최상위 메시지, 서비스 및 열거에 대해 생성된 모든 Java 클래스/enums/etc는 외부 클래스 내부에 중첩됩니다(`java_outer_classname` 참조).  true이면 최상위 메시지, 서비스 및 열거에 대해 생성된 각 Java 클래스/enums/etc에 대해 별도의 `.java` 파일이 생성되고 이 .proto 파일에 대해 생성된 래퍼 Java 클래스는 중첩된 클래스/enums/etc를 포함하지 않습니다. 이것은 기본적으로` false`로 설정된 부울 옵션입니다. Java 코드를 생성하지 않는 경우 이 옵션은 효과가 없습니다.
+
+  ```protobuf
+  option java_multiple_files = true;
+  ```
+
+* `optimize_for` ( 파일 수준 옵션): `SPEED`, `CODE_SIZE` 또는 `LITE_RUNTIME`으로 설정할 수 있습니다. 이는 다음과 같은 방식으로 C++ 및 Java 코드 생성기(및 타사 생성기)에 영향을 줍니다.
+
+  *  `SPEED` (기본 값): 프로토콜 버퍼 컴파일러는 직렬화, 구문 분석 및 메시지 유형에 대한 기타 일반적인 작업을 수행하기 위한 코드를 생성합니다. 이 코드는 고도로 최적화되어 있습니다.
+
+  * `CODE_SIZE`: 프로토콜 버퍼 컴파일러는 최소 클래스를 생성하고 공유, 리플렉션 기반 코드에 의존하여 직렬화, 구문 분석 및 기타 다양한  작업을 구현합니다. 따라서 생성된 코드는 `SPEED`보다 훨씬 작지만 작업은 더 느립니다. 클래스는 여전히 `SPEED` 모드에서와 동일한 public API를 구현합니다.  이 모드는 매우 많은 수의 `.proto` 파일이 포함된 앱에서 가장 유용하며 모든 파일이 눈에 띄게 빨라야 할 필요는 없습니다.
+
+  * `LITE_RUNTIME`: 프로토콜 버퍼 컴파일러는 "lite" 런타임 라이브러리(`libprotobuf` 대신 `libprotobuf-lite`)에만 의존하는 클래스를 생성합니다. 라이트 런타임은 전체 라이브러리보다 훨씬 작지만(약 10배 정도 작음) 디스크립터 및 리플렉션과 같은 특정 기능을 생략합니다. 이것은 휴대폰과 같은 제한된 플랫폼에서 실행되는 앱에 특히 유용합니다. 컴파일러는 여전히 `SPEED` 모드에서와 같이 모든 메서드의 빠른 구현을 생성합니다. 생성된 클래스는 각 언어의 `MessageLite` 인터페이스만 구현하며, 이는 전체 `Message` 인터페이스의 메서드 하위 집합만 제공합니다.
+
+    ```protobuf
+    option optimize_for = CODE_SIZE;
+    ```
+
+  * `cc_enable_arenas` (파일 수준 옵션): C++ 생성 코드에 대한 arena 할당을 활성화합니다.
+
+  * `objc_class_prefix` (파일 수준 옵션): 이 .proto에서 생성된 모든 Objective-C 클래스 및 열거형 앞에 붙는 Objective-C 클래스 접두사를 설정합니다. 기본 값은 없습니다. [Apple에서 권장](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Conventions/Conventions.html#//apple_ref/doc/uid/TP40011210-CH10-SW4)하는 대로 3-5개의 대문자로 된 접두사를 사용해야 합니다. 두 글자 접두사는 모두 Apple에서 예약한 것입니다.
+
+  * `deprecated` (필드 수준 옵션): `true`로 설정하면 필드가 더 이상 사용되지 않으며 새 코드에서 사용해서는 안 됨을 나타냅니다. 대부분의 언어에서는 실제 효과가 없습니다. Java에서 이것은 `@Deprecated` 어노테이션이 됩니다. 미래에는 다른 언어별 코드 생성기가 필드의 접근자에 사용 중단 어노테이션을 생성할 수 있으며, 이로 인해 필드를 사용하려고 시도하는 코드를 컴파일할 때 경고가 표시됩니다. 필드를 다른 사람이 사용하지 않고 새 사용자가 사용하지 못하도록 하려면 필드 선언을 `reserved` 문으로 바꾸는 것이 좋습니다.
+
+    ```protobuf
+    int32 old_field = 6 [deprecated = true];
+    ```
+
+#### 사용자 지정 옵션
+
+또한 프로토콜 버퍼를 사용하여 고유한 옵션을 정의하고 사용할 수 있습니다. 이것은 대부분의 사람들에게 필요하지 않은 **고급 기능**입니다. 자신만의 옵션을 만들어야 한다고 생각한다면 자세한 내용은 [Proto2 언어 가이드](https://developers.google.com/protocol-buffers/docs/proto#customoptions)를 참조하세요. 사용자 지정 옵션을 생성하는 것은 proto3의 사용자 지정 옵션에 대해서만 허용되는 확장을 사용한다는 점에 유의하세요.
+
+ 
 
 
 
 ## 클래스 생성하기
 
+`.proto` 파일에 정의된 메시지 타입으로 작업해야 하는 Java, Kotlin, Python, C++, Go, Ruby, Objective-C 또는 C# 코드를 생성하려면 `.proto`에서 프로토콜 버퍼 컴파일러 `protoc`를 실행해야 합니다. 컴파일러를 설치하지 않은 경우 [패키지를 다운로드](https://developers.google.com/protocol-buffers/docs/downloads)하고 README 지침을 따르세요. Go의 경우 컴파일러용 특수 코드 생성기 플러그인도 설치해야 합니다:  GitHub의 [golang/protobuf](https://github.com/golang/protobuf/) 저장소에서 이 지침과 설치 지침을 찾을 수 있습니다.
 
+프로토콜 컴파일러는 다음과 같이 호출됩니다.
 
+```bash
+protoc --proto_path=IMPORT_PATH --cpp_out=DST_DIR --java_out=DST_DIR --python_out=DST_DIR --go_out=DST_DIR --ruby_out=DST_DIR --objc_out=DST_DIR --csharp_out=DST_DIR path/to/file.proto
+```
 
+* `IMPORT_PATH`는 `import` 지시문을 해결할 때 `.proto` 파일을 찾을 디렉토리를 지정합니다. 생략하면 현재 디렉토리가 사용됩니다. `--proto_path` 옵션을 여러 번 전달하여 여러개의 가져오기 디렉터리를 지정할 수 있습니다. 그것들은 순서대로 검색됩니다. `-I=_IMPORT_PATH_`는 `--proto_path`의 짧은 형식으로 사용할 수 있습니다.
+
+* 하나 이상의 출력 지시문을 제공할 수 있습니다.
+
+  * `--cpp_out`은 `DST_DIR`에 C\+\+ 코드를 생성합니다. 자세한 내용은 [C++ 생성 코드  레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/cpp-generated)를 참조하세요.
+  * `--java_out`은 `DST_DIR`에 Java 코드를 생성합니다. 자세한 내용은 [Java 생성 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/java-generated)를 참조하세요.
+  * `--kotlin_out`은 `DST_DIR`에 추가 Kotlin 코드를 생성합니다. 자세한 내용은 [Kotlin 생성 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/kotlin-generated)를 참조하세요.
+  * `--python_out`은 `DST_DIR`에 Python 코드를 생성합니다. 자세한 내용은 [Python 생성 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/python-generated)를 참조하세요.
+  * `--go_out`은 `DST_DIR`에 Go 코드를 생성합니다. 자세한 내용은 [Go에서 생성한 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/go-generated)를 참조하세요.
+  * `--ruby_out`은 `DST_DIR`에 Ruby 코드를 생성합니다. 자세한 내용은 [Ruby 생성 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/ruby-generated)를 참조하세요.
+  * `--objc_out`은 `DST_DIR`에 Objective-C 코드를 생성합니다. 자세한 내용은 [Objective-C 생성 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/objective-c-generated)를 참조하세요.
+  * `--csharp_out`은 `DST_DIR`에 C# 코드를 생성합니다. 자세한 내용은 [C# 생성 코드 레퍼런스](https://developers.google.com/protocol-buffers/docs/reference/csharp-generated)를 참조하세요.
+  * `--php_out`은 `DST_DIR`에 PHP 코드를 생성합니다. 자세한 내용은 `PHP 생성 코드 레퍼런스`를 참조하세요.
+
+  추가 편의를 위해 `DST_DIR`이 `.zip` 또는 `.jar`로 끝나는 경우 컴파일러는 지정된 이름의 단일 ZIP 형식 아카이브 파일에 출력을 씁니다. `.jar` 출력에는 Java JAR 사양에서 요구하는 대로 매니페스트 파일도 제공됩니다. 출력 아카이브가 이미 있는 경우 덮어쓰게 됩니다. 컴파일러는 기존 아카이브에 파일을 추가할 만큼 똑똑하지 않습니다.
+
+* 하나 이상의 `.proto` 파일을 입력으로 제공해야 합니다. 여러 `.proto` 파일을 한 번에 지정할 수 있습니다. 파일 이름은 현재 디렉터리를 기준으로 지정되지만 각 파일은 `IMPORT_PATH` 중 하나에 있어야 컴파일러가 정식 이름을 결정할 수 있습니다.
 
 
 
@@ -697,5 +769,5 @@ proto3 JSON 구현은 다음 옵션을 제공할 수 있습니다:
 * 예전에 proto3버전인지 2버전을 봤었는지 정확하게 기억이 안난다.,  그런데 Java 튜토리얼을 보니 proto2 기준 같다.
 
 * placeholder : 빠져 있는 다른 것을 대신하는 기호나 텍스트의 일부
-* 그런데 wire가 뭐지?
+*  TODO: 그런데 wire가 뭐지?
 
